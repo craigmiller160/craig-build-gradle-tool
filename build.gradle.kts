@@ -21,9 +21,13 @@ configure<SpotlessExtension> {
 
 dependencies {
     val jacksonVersion = "2.13.3"
+    val slf4jVersion = "1.7.36"
+    val gradleToolingApiVersion = "7.4.2"
 
     testImplementation(kotlin("test"))
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    implementation("org.gradle:gradle-tooling-api:$gradleToolingApiVersion")
+    implementation("org.slf4j:slf4j-simple:$slf4jVersion")
 }
 
 tasks.test {
