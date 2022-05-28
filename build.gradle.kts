@@ -20,7 +20,10 @@ configure<SpotlessExtension> {
 }
 
 dependencies {
+    val jacksonVersion = "2.13.3"
+
     testImplementation(kotlin("test"))
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
 }
 
 tasks.test {
