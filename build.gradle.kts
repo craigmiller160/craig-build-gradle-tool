@@ -1,10 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.diffplug.gradle.spotless.SpotlessExtension
 
+val mainClass = "io.craigmiller160.craigbuild.gradle.tool.RunnerKt"
+
 plugins {
     kotlin("jvm") version "1.6.20"
     id("com.diffplug.spotless") version "6.6.1"
     `maven-publish`
+    application
 }
 
 group = "io.craigmiller160"
@@ -18,6 +21,10 @@ repositories {
     maven {
         url = uri("https://craigmiller160.ddns.net:30003/repository/maven-public")
     }
+}
+
+application {
+    mainClass.set(mainClass)
 }
 
 publishing {
@@ -72,7 +79,7 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Jar> {
     manifest {
         attributes(mapOf(
-            "Main-class" to "io.craigmiller160.craigbuild.gradle.tool.RunnerKt"
+            "Main-class" to mainClass
         ))
     }
 
