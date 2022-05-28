@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.diffplug.gradle.spotless.SpotlessExtension
 
-val mainClass = "io.craigmiller160.craigbuild.gradle.tool.RunnerKt"
+val projectMainClass = "io.craigmiller160.craigbuild.gradle.tool.RunnerKt"
 
 plugins {
     kotlin("jvm") version "1.6.20"
@@ -24,7 +24,7 @@ repositories {
 }
 
 application {
-    mainClass.set(mainClass)
+    mainClass.set(projectMainClass)
 }
 
 publishing {
@@ -79,7 +79,7 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Jar> {
     manifest {
         attributes(mapOf(
-            "Main-class" to mainClass
+            "Main-class" to projectMainClass
         ))
     }
 
