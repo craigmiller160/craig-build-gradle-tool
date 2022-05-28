@@ -68,3 +68,15 @@ tasks.test {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
+
+tasks.withType<Jar> {
+    manifest {
+        attributes(mapOf(
+            "Main-class" to "io.craigmiller160.craigbuild.gradle.tool.RunnerKt"
+        ))
+    }
+
+    from(configurations.compileClasspath.get()
+        .map { if (it.isDirectory) it else zipTree(it) })
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
