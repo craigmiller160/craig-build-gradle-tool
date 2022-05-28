@@ -14,6 +14,9 @@ repositories {
     maven {
         url = uri("https://repo.gradle.org/gradle/libs-releases")
     }
+    maven {
+        url = uri("https://craigmiller160.ddns.net:30003/repository/maven-public")
+    }
 }
 
 configure<SpotlessExtension> {
@@ -26,11 +29,13 @@ dependencies {
     val jacksonVersion = "2.13.3"
     val slf4jVersion = "1.7.36"
     val gradleToolingApiVersion = "7.4.2"
+    val craigBuildGradlePluginVersion = "1.0.0"
 
     testImplementation(kotlin("test"))
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("org.gradle:gradle-tooling-api:$gradleToolingApiVersion")
     implementation("org.slf4j:slf4j-simple:$slf4jVersion")
+    implementation("io.craigmiller160:craig-build-gradle-plugin:$craigBuildGradlePluginVersion")
 }
 
 tasks.test {
