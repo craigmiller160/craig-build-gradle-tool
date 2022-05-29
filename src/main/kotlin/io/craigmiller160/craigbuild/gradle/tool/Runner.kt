@@ -28,17 +28,19 @@ fun main(args: Array<String>) {
                   group = craigBuildProject.group,
                   name = craigBuildProject.name,
                   version = craigBuildProject.version),
-          dependencies =
-              ideaProject.modules.all
-                  .asSequence()
-                  .flatMap { it.dependencies.all.asSequence() }
-                  .filter { it is ExternalDependency }
-                  .map { it as ExternalDependency }
-                  .map { it.gradleModuleVersion }
-                  .filterNotNull()
-                  .map { Item(group = it.group, name = it.name, version = it.version) }
-                  .toList())
+          dependencies = getDependencies(ideaProject))
 
   val json = ObjectMapper().writeValueAsString(project)
   println(json)
+}
+
+private fun getDependencies(model: IdeaProject): List<Item> {
+  return model.modules.all
+      .asSequence()
+      .flatMap { it.dependencies.all.asSequence() }
+      .filter { it is ExternalDependency }
+      .map { it as ExternalDependency }
+      .map { it.gradleModuleVersion }
+      .map { Item(group = it.group, name = it.name, version = it.version) }
+      .toList()
 }
