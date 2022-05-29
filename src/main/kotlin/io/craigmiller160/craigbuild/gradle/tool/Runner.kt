@@ -35,6 +35,7 @@ fun main(args: Array<String>) {
                   .filter { it is ExternalDependency }
                   .map { it as ExternalDependency }
                   .map { it.gradleModuleVersion }
+                  .filterNotNull()
                   .map { Item(group = it.group, name = it.name, version = it.version) }
                   .toList())
 
