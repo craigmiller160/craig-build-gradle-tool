@@ -1,7 +1,11 @@
 package io.craigmiller160.craigbuild.gradle.tool
 
+import arrow.core.Either
+import arrow.core.getOrHandle
+import arrow.core.sequence
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.craigmiller160.craigbuild.gradle.plugin.model.CraigBuildProject
+import io.craigmiller160.craigbuild.gradle.tool.error.UnresolvedDependencyException
 import io.craigmiller160.craigbuild.gradle.tool.model.Item
 import io.craigmiller160.craigbuild.gradle.tool.model.Project
 import java.io.File
@@ -34,13 +38,18 @@ fun main(args: Array<String>) {
   println(json)
 }
 
-private fun getDependencies(model: IdeaProject): List<Item> {
-  return model.modules.all
-      .asSequence()
-      .flatMap { it.dependencies.all.asSequence() }
-      .filter { it is ExternalDependency }
-      .map { it as ExternalDependency }
-      .map { it.gradleModuleVersion }
-      .map { Item(group = it.group, name = it.name, version = it.version) }
-      .toList()
-}
+private fun getDependencies(model: IdeaProject): List<Item> =
+    model.modules.all
+        .asSequence()
+        .flatMap { it.dependencies.all.asSequence() }
+        .filter { it is ExternalDependency }
+        .map { it as ExternalDependency }
+        .map { dependency ->
+          dependency.gradleModuleVersion?.let { Either.Right(it) }
+              ?: Either.Left(UnresolvedDependencyException(dependency.file.absolutePath))
+        }
+        .sequence()
+        .map { dependencies ->
+          dependencies.map { Item(group = it.group, name = it.name, version = it.version) }
+        }
+        .getOrHandle { throw it }

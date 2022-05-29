@@ -60,12 +60,14 @@ dependencies {
     val slf4jVersion = "1.7.36"
     val gradleToolingApiVersion = "7.4.2"
     val craigBuildGradlePluginVersion = "1.0.0"
+    val arrowKtVersion = "1.1.2"
 
     testImplementation(kotlin("test"))
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("org.gradle:gradle-tooling-api:$gradleToolingApiVersion")
     implementation("org.slf4j:slf4j-simple:$slf4jVersion")
     implementation("io.craigmiller160:craig-build-gradle-plugin:$craigBuildGradlePluginVersion")
+    implementation("io.arrow-kt:arrow-core:$arrowKtVersion")
 }
 
 tasks.test {
