@@ -15,7 +15,6 @@ version = "1.1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    mavenLocal()
     maven {
         url = uri("https://repo.gradle.org/gradle/libs-releases")
     }
@@ -39,7 +38,6 @@ publishing {
         }
     }
     repositories {
-        mavenLocal()
         maven {
             val repo = if (project.version.toString().endsWith("-SNAPSHOT")) "maven-snapshots" else "maven-releases"
             url = uri("https://craigmiller160.ddns.net:30003/repository/$repo")
