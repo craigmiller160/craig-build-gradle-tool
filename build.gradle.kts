@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "io.craigmiller160"
-version = "1.0.2"
+version = "1.1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
