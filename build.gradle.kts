@@ -39,6 +39,7 @@ publishing {
         }
     }
     repositories {
+        mavenLocal()
         maven {
             val repo = if (project.version.toString().endsWith("-SNAPSHOT")) "maven-snapshots" else "maven-releases"
             url = uri("https://craigmiller160.ddns.net:30003/repository/$repo")
