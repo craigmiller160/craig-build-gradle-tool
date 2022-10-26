@@ -19,7 +19,7 @@ repositories {
         url = uri("https://repo.gradle.org/gradle/libs-releases")
     }
     maven {
-        url = uri("https://craigmiller160.ddns.net:30003/repository/maven-public")
+        url = uri("https://nexus-craigmiller160.ddns.net/repository/maven-public")
     }
 }
 
@@ -40,7 +40,7 @@ publishing {
     repositories {
         maven {
             val repo = if (project.version.toString().endsWith("-SNAPSHOT")) "maven-snapshots" else "maven-releases"
-            url = uri("https://craigmiller160.ddns.net:30003/repository/$repo")
+            url = uri("https://nexus-craigmiller160.ddns.net/repository/$repo")
             credentials {
                 username = System.getenv("NEXUS_USER")
                 password = System.getenv("NEXUS_PASSWORD")
