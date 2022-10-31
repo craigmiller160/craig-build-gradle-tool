@@ -59,7 +59,7 @@ dependencies {
     val jacksonVersion = "2.13.3"
     val slf4jVersion = "1.7.36"
     val gradleToolingApiVersion = "7.4.2"
-    val craigBuildGradlePluginVersion = "1.0.0"
+    val craigBuildGradlePluginVersion = "1.1.0-SNAPSHOT"
     val arrowKtVersion = "1.1.2"
 
     testImplementation(kotlin("test"))
