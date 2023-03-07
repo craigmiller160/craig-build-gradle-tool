@@ -13,6 +13,8 @@ import org.gradle.tooling.GradleConnector
 import org.gradle.tooling.model.ExternalDependency
 import org.gradle.tooling.model.idea.IdeaProject
 
+private val GRADLE_API_REGEX = Regex("^.*\\/gradle-api-.*\\.jar$")
+
 fun main(args: Array<String>) {
   if (args.isEmpty()) {
     throw RuntimeException("Must provide project file path")
@@ -45,14 +47,16 @@ private fun getDependencies(model: IdeaProject): List<Item> =
         .filter { it is ExternalDependency }
         .map { it as ExternalDependency }
         .map { dependency ->
-          dependency.gradleModuleVersion?.let { Either.Right(it) }
-              ?: run {
-                println(dependency.javaClass.name)
-                Either.Left(UnresolvedDependencyException(dependency.file.absolutePath))
-              }
+          when {
+            dependency.gradleModuleVersion != null -> Either.Right(dependency.gradleModuleVersion)
+            GRADLE_API_REGEX.matches(dependency.file.absolutePath) -> Either.Right(null)
+            else -> Either.Left(UnresolvedDependencyException(dependency.file.absolutePath))
+          }
         }
         .sequence()
         .map { dependencies ->
-          dependencies.map { Item(group = it.group, name = it.name, version = it.version) }
+          dependencies.filterNotNull().map {
+            Item(group = it.group, name = it.name, version = it.version)
+          }
         }
         .getOrHandle { throw it }
