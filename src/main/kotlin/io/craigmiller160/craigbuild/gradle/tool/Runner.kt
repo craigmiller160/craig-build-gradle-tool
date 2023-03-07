@@ -46,7 +46,10 @@ private fun getDependencies(model: IdeaProject): List<Item> =
         .map { it as ExternalDependency }
         .map { dependency ->
           dependency.gradleModuleVersion?.let { Either.Right(it) }
-              ?: Either.Left(UnresolvedDependencyException(dependency.file.absolutePath))
+              ?: run {
+                  println(dependency.javaClass.name)
+                  Either.Left(UnresolvedDependencyException(dependency.file.absolutePath))
+              }
         }
         .sequence()
         .map { dependencies ->
