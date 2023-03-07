@@ -74,10 +74,6 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
 tasks.withType<Jar> {
     manifest {
         attributes(mapOf(
