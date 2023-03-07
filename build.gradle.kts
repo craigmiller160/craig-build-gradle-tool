@@ -4,14 +4,14 @@ import com.diffplug.gradle.spotless.SpotlessExtension
 val projectMainClass = "io.craigmiller160.craigbuild.gradle.tool.RunnerKt"
 
 plugins {
-    kotlin("jvm") version "1.6.20"
+    kotlin("jvm") version "1.8.10"
     id("com.diffplug.spotless") version "6.6.1"
     `maven-publish`
     application
 }
 
 group = "io.craigmiller160"
-version = "1.0.2"
+version = "1.0.3"
 
 repositories {
     mavenCentral()
@@ -59,7 +59,7 @@ dependencies {
     val jacksonVersion = "2.13.3"
     val slf4jVersion = "1.7.36"
     val gradleToolingApiVersion = "7.4.2"
-    val craigBuildGradlePluginVersion = "1.0.0"
+    val craigBuildGradlePluginVersion = "1.0.1"
     val arrowKtVersion = "1.1.2"
 
     testImplementation(kotlin("test"))
